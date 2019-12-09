@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Apache Flink 任意 Jar 包上传导致远程代码执行漏洞复现 | 狗剩儿</title>
 <meta name="description" content="小菜鸡。" />
-<link rel="shortcut icon" href="https://foolb.github.io//favicon.ico?v=1575893743842">
+<link rel="shortcut icon" href="https://foolb.github.io//favicon.ico?v=1575893889601">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://foolb.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://foolb.github.io/">
-  <img class="avatar" src="https://foolb.github.io//images/avatar.png?v=1575893743842" alt="">
+  <img class="avatar" src="https://foolb.github.io//images/avatar.png?v=1575893889601" alt="">
   </a>
   <h1 class="site-title">
     狗剩儿
@@ -97,8 +97,8 @@
 <h2 id="影响版本">影响版本</h2>
 <p>Apache Flink &lt;= 1.9.1（截止 2019/12/8 最新版）</p>
 <h2 id="环境搭建">环境搭建</h2>
-<h3 id="安装jdk">安装jdk</h3>
-<p>下载 jdk，解压到 /usr/java 目录下。</p>
+<h3 id="安装-jdk">安装 JDK</h3>
+<p>下载 JDK，解压到 /usr/java 目录下。</p>
 <p>修改 /etc/profile 在 profile 文件中添加如下内容并保存（JAVA_HOME请根据自己的实际安装路径及JDK版本配置）。</p>
 <pre><code>#java environment
 export JAVA_HOME=/usr/java/jdk1.8.0_231
@@ -186,7 +186,7 @@ java -version
 <li><a href="#%E5%BD%B1%E5%93%8D%E7%89%88%E6%9C%AC">影响版本</a></li>
 <li><a href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA">环境搭建</a>
 <ul>
-<li><a href="#%E5%AE%89%E8%A3%85jdk">安装jdk</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85-jdk">安装 JDK</a></li>
 <li><a href="#%E4%B8%8B%E8%BD%BD-flink">下载 flink</a></li>
 </ul>
 </li>
