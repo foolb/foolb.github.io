@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://foolb.github.io/</id>
     <title>狗剩儿</title>
-    <updated>2019-12-09T12:30:29.774Z</updated>
+    <updated>2019-12-13T15:57:59.943Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://foolb.github.io/"/>
     <link rel="self" href="https://foolb.github.io//atom.xml"/>
@@ -10,6 +10,27 @@
     <logo>https://foolb.github.io//images/avatar.png</logo>
     <icon>https://foolb.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, 狗剩儿</rights>
+    <entry>
+        <title type="html"><![CDATA[Msfvenom 命令自动补全]]></title>
+        <id>https://foolb.github.io//post/U0ihu9kL6</id>
+        <link href="https://foolb.github.io//post/U0ihu9kL6">
+        </link>
+        <updated>2019-12-13T15:53:52.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="一键部署metasploit-framework">一键部署Metasploit-Framework</h2>
+<pre><code class="language-bash">apt-get install curl,wget
+curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; \
+  chmod 755 msfinstall &amp;&amp; \
+  ./msfinstall
+</code></pre>
+]]></summary>
+        <content type="html"><![CDATA[<h2 id="一键部署metasploit-framework">一键部署Metasploit-Framework</h2>
+<pre><code class="language-bash">apt-get install curl,wget
+curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; \
+  chmod 755 msfinstall &amp;&amp; \
+  ./msfinstall
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Apache Flink 任意 Jar 包上传导致远程代码执行漏洞复现]]></title>
         <id>https://foolb.github.io//post/1</id>
