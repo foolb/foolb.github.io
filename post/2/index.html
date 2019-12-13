@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Msfvenom 命令自动补全 | 狗剩儿</title>
 <meta name="description" content="小菜鸡。" />
-<link rel="shortcut icon" href="https://foolb.github.io//favicon.ico?v=1576252809436">
+<link rel="shortcut icon" href="https://foolb.github.io//favicon.ico?v=1576253193825">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://foolb.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://foolb.github.io/">
-  <img class="avatar" src="https://foolb.github.io//images/avatar.png?v=1576252809436" alt="">
+  <img class="avatar" src="https://foolb.github.io//images/avatar.png?v=1576253193825" alt="">
   </a>
   <h1 class="site-title">
     狗剩儿
@@ -102,7 +102,7 @@ curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/t
   ./msfinstall
 </code></pre>
 <!-- more -->
-<p>成功安装后请运行下列代码，以便MSF连接数据库。</p>
+<p>成功安装后创建一个普通账户 msf 并切换到 msf ，执行 msfconsole 启动 MSF ，以便 MSF 连接数据库。</p>
 <pre><code class="language-bash">adduser msf
 
 su msf
@@ -139,11 +139,9 @@ autoload -Uz compinit &amp;&amp; compinit -i # 确保 compinit 已加载或通�
 在以 root 用户为前提下，Zsh 的配置文件位置：/root/.zshrc</p>
 <p>为 root 用户设置 zsh 为系统默认 shell：</p>
 <pre><code class="language-bash">chsh -s /bin/zsh root
-
 </code></pre>
 <p>如果你要重新恢复到 bash：</p>
 <pre><code class="language-bash">chsh -s /bin/bash root
-
 </code></pre>
 <figure data-type="image" tabindex="6"><img src="https://foolb.github.io//post-images/image-20191213233654988.png" alt="image-20191213233654988"></figure>
 <p>重启系统之后就可以补全命令了。</p>
