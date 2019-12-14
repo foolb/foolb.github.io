@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Msfvenom 命令自动补全 | 狗剩儿</title>
 <meta name="description" content="小菜鸡。" />
-<link rel="shortcut icon" href="https://foolb.github.io//favicon.ico?v=1576253299439">
+<link rel="shortcut icon" href="https://foolb.github.io//favicon.ico?v=1576295728479">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://foolb.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://foolb.github.io/">
-  <img class="avatar" src="https://foolb.github.io//images/avatar.png?v=1576253299439" alt="">
+  <img class="avatar" src="https://foolb.github.io//images/avatar.png?v=1576295728479" alt="">
   </a>
   <h1 class="site-title">
     狗剩儿
@@ -93,14 +93,19 @@
               
             </div>
             
+              <img class="post-feature-image" src="https://foolb.github.io//post-images/2.png" alt="">
+            
             <div class="post-content-wrapper">
               <div class="post-content">
                 <h2 id="一键部署metasploit-framework">一键部署Metasploit-Framework</h2>
-<pre><code class="language-bash">apt-get install curl,wget
-curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; \
+<pre><code class="language-bash">yum install curl,wget
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://foolb.github.io//post-images/image-20191214112929420.png" alt="image-20191213230855185"></figure>
+<pre><code class="language-bash">curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; \
   chmod 755 msfinstall &amp;&amp; \
   ./msfinstall
 </code></pre>
+<figure data-type="image" tabindex="2"><img src="https://foolb.github.io//post-images/image-20191214113144558.png" alt="image-20191214113144558"></figure>
 <!-- more -->
 <p>成功安装后创建一个普通账户 msf 并切换到 msf ，执行 msfconsole，以便 MSF 连接数据库。</p>
 <pre><code class="language-bash">adduser msf
@@ -109,31 +114,17 @@ su msf
 
 msfconsole
 </code></pre>
+<figure data-type="image" tabindex="3"><img src="https://foolb.github.io//post-images/image-20191214113456125.png" alt="image-20191214113456125"></figure>
+<figure data-type="image" tabindex="4"><img src="https://foolb.github.io//post-images/image-20191214113514423.png" alt="image-20191214113514423"></figure>
 <h2 id="安装-oh-my-zsh">安装 Oh My Zsh</h2>
 <pre><code>yum install zsh git -y
 </code></pre>
 <pre><code>wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh
 </code></pre>
-<figure data-type="image" tabindex="1"><img src="https://foolb.github.io//post-images/image-20191213230855185.png" alt="image-20191213230855185"></figure>
-<h2 id="安装自动补全脚本">安装自动补全脚本</h2>
-<pre><code>git clone https://github.com/Green-m/msfvenom-zsh-completion ~/.oh-my-zsh/custom/plugins/msfvenom/
-</code></pre>
-<figure data-type="image" tabindex="2"><img src="https://foolb.github.io//post-images/image-20191213231018880.png" alt="image-20191213231018880"></figure>
-<p>修改 ~/.zshrc 文件</p>
-<pre><code>将
-plugins=(git) 
-修改为
-plugins=(git msfvenom)
-</code></pre>
-<figure data-type="image" tabindex="3"><img src="https://foolb.github.io//post-images/image-20191213231130812.png" alt="image-20191213231130812"></figure>
-<p>末尾添加</p>
-<pre><code class="language-cmd">fpath=(~/.zsh/completion $fpath) # $fpath 通过添加来包含您的目录~/.zshrc
-autoload -Uz compinit &amp;&amp; compinit -i # 确保 compinit 已加载或通过添加~/.zshrc
-</code></pre>
-<figure data-type="image" tabindex="4"><img src="https://foolb.github.io//post-images/image-20191213233444925.png" alt="image-20191213233444925"></figure>
-<pre><code class="language-bash">source .zshrc # 出现了一堆错误，但是后来发现不影响就没解决了~~
-</code></pre>
-<figure data-type="image" tabindex="5"><img src="https://foolb.github.io//post-images/image-20191213233509710.png" alt="image-20191213233509710"></figure>
+<p>这里会询问你是否将默认shell修改为zsh，选择y</p>
+<figure data-type="image" tabindex="5"><img src="https://foolb.github.io//post-images/image-20191214114103332.png" alt="image-20191214114103332"></figure>
+<p>如果出现以下响应，没有出现上面的选择则手动修改当前shell</p>
+<figure data-type="image" tabindex="6"><img src="https://foolb.github.io//post-images/image-20191213230855185.png" alt="image-20191213230855185"></figure>
 <h2 id="修改当前shell">修改当前shell</h2>
 <p>在以 root 用户为前提下，oh-my-zsh 的安装目录：/root/.oh-my-zsh<br>
 在以 root 用户为前提下，Zsh 的配置文件位置：/root/.zshrc</p>
@@ -143,9 +134,28 @@ autoload -Uz compinit &amp;&amp; compinit -i # 确保 compinit 已加载或通�
 <p>如果你要重新恢复到 bash：</p>
 <pre><code class="language-bash">chsh -s /bin/bash root
 </code></pre>
-<figure data-type="image" tabindex="6"><img src="https://foolb.github.io//post-images/image-20191213233654988.png" alt="image-20191213233654988"></figure>
-<p>重启系统之后就可以补全命令了。</p>
-<figure data-type="image" tabindex="7"><img src="https://foolb.github.io//post-images/image-20191213233748035.png" alt="image-20191213233748035"></figure>
+<figure data-type="image" tabindex="7"><img src="https://foolb.github.io//post-images/image-20191213233654988.png" alt="image-20191213233654988"></figure>
+<h2 id="安装自动补全脚本">安装自动补全脚本</h2>
+<pre><code>git clone https://github.com/Green-m/msfvenom-zsh-completion ~/.oh-my-zsh/custom/plugins/msfvenom/
+</code></pre>
+<figure data-type="image" tabindex="8"><img src="https://foolb.github.io//post-images/image-20191213231018880.png" alt="image-20191213231018880"></figure>
+<p>修改 ~/.zshrc 文件</p>
+<pre><code>将
+plugins=(git) 
+修改为
+plugins=(git msfvenom)
+</code></pre>
+<figure data-type="image" tabindex="9"><img src="https://foolb.github.io//post-images/image-20191213231130812.png" alt="image-20191213231130812"></figure>
+<p>末尾添加</p>
+<pre><code class="language-cmd">fpath=(~/.zsh/completion $fpath) # $fpath 通过添加来包含您的目录~/.zshrc
+autoload -Uz compinit &amp;&amp; compinit -i # 确保 compinit 已加载或通过添加~/.zshrc
+</code></pre>
+<figure data-type="image" tabindex="10"><img src="https://foolb.github.io//post-images/image-20191213233444925.png" alt="image-20191213233444925"></figure>
+<pre><code class="language-bash">source .zshrc
+</code></pre>
+<figure data-type="image" tabindex="11"><img src="https://foolb.github.io//post-images/image-20191214113925923.png" alt="image-20191214113925923"></figure>
+<p>命令自动补全完成。</p>
+<figure data-type="image" tabindex="12"><img src="https://foolb.github.io//post-images/image-20191213233748035.png" alt="image-20191213233748035"></figure>
 <h2 id="参考链接">参考链接</h2>
 <p>https://blog.csdn.net/qq_21310689/article/details/85594699</p>
 <p>https://micro8.gitbook.io/micro8/contents-1/21-30/30-jie-jue-msfvenom-ming-ling-zi-dong-bu-quan</p>
@@ -158,8 +168,8 @@ autoload -Uz compinit &amp;&amp; compinit -i # 确保 compinit 已加载或通�
 <ul>
 <li><a href="#%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2metasploit-framework">一键部署Metasploit-Framework</a></li>
 <li><a href="#%E5%AE%89%E8%A3%85-oh-my-zsh">安装 Oh My Zsh</a></li>
-<li><a href="#%E5%AE%89%E8%A3%85%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E8%84%9A%E6%9C%AC">安装自动补全脚本</a></li>
 <li><a href="#%E4%BF%AE%E6%94%B9%E5%BD%93%E5%89%8Dshell">修改当前shell</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E8%84%9A%E6%9C%AC">安装自动补全脚本</a></li>
 <li><a href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5">参考链接</a></li>
 </ul>
 </li>
