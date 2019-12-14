@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>狗剩儿</title>
 <meta name="description" content="小菜鸡。" />
-<link rel="shortcut icon" href="https://foolb.github.io//favicon.ico?v=1576295957590">
+<link rel="shortcut icon" href="https://foolb.github.io//favicon.ico?v=1576296042927">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://foolb.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://foolb.github.io/">
-  <img class="avatar" src="https://foolb.github.io//images/avatar.png?v=1576295957590" alt="">
+  <img class="avatar" src="https://foolb.github.io//images/avatar.png?v=1576296042927" alt="">
   </a>
   <h1 class="site-title">
     狗剩儿
@@ -99,7 +99,10 @@
         <h2 id="一键部署metasploit-framework">一键部署Metasploit-Framework</h2>
 <pre><code class="language-bash">yum install curl,wget
 </code></pre>
-<figure data-type="image" tabindex="1"><img src="https://foolb.github.io//post-images/image-20191214112929420.png" alt="image-20191213230855185"></figure>
+<pre><code class="language-bash">curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; \
+  chmod 755 msfinstall &amp;&amp; \
+  ./msfinstall
+</code></pre>
 
       </div>
     </article>
