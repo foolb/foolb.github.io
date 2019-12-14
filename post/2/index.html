@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Msfvenom 命令自动补全 | 狗剩儿</title>
 <meta name="description" content="小菜鸡。" />
-<link rel="shortcut icon" href="https://foolb.github.io//favicon.ico?v=1576296042927">
+<link rel="shortcut icon" href="https://foolb.github.io//favicon.ico?v=1576296371962">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://foolb.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://foolb.github.io/">
-  <img class="avatar" src="https://foolb.github.io//images/avatar.png?v=1576296042927" alt="">
+  <img class="avatar" src="https://foolb.github.io//images/avatar.png?v=1576296371962" alt="">
   </a>
   <h1 class="site-title">
     狗剩儿
@@ -95,14 +95,15 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h2 id="一键部署metasploit-framework">一键部署Metasploit-Framework</h2>
+                <h2 id="前言">前言</h2>
+<p>msfvenom 平常使用的话参数太多，有时候敲错还要检查半天，正好亮神的文章有写 Msfvenom 命令自动补全，我就照着亮神的文章优化一下我自己的环境。</p>
+<h2 id="一键部署metasploit-framework">一键部署Metasploit-Framework</h2>
 <pre><code class="language-bash">yum install curl,wget
 </code></pre>
 <pre><code class="language-bash">curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; \
   chmod 755 msfinstall &amp;&amp; \
   ./msfinstall
 </code></pre>
-<!-- more -->
 <figure data-type="image" tabindex="1"><img src="https://foolb.github.io//post-images/image-20191214112929420.png" alt="image-20191213230855185"></figure>
 <figure data-type="image" tabindex="2"><img src="https://foolb.github.io//post-images/image-20191214113144558.png" alt="image-20191214113144558"></figure>
 <p>成功安装后创建一个普通账户 msf 并切换到 msf ，执行 msfconsole，以便 MSF 连接数据库。</p>
@@ -164,6 +165,7 @@ autoload -Uz compinit &amp;&amp; compinit -i # 确保 compinit 已加载或通�
                 <ul class="markdownIt-TOC">
 <li>
 <ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
 <li><a href="#%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2metasploit-framework">一键部署Metasploit-Framework</a></li>
 <li><a href="#%E5%AE%89%E8%A3%85-oh-my-zsh">安装 Oh My Zsh</a></li>
 <li><a href="#%E4%BF%AE%E6%94%B9%E5%BD%93%E5%89%8Dshell">修改当前shell</a></li>
